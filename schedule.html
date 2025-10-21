@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
+
+    /* General style */
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -15,7 +17,7 @@
       color: #333;
     }
 
-    /* Navbar */
+    /* Navigation bar at the top left*/
     .navbar {
       display: flex;
       align-items: center;
@@ -23,6 +25,8 @@
       color: white;
       padding: 10px 20px;
     }
+    
+    /* Navigation links for each page */
     .tabs {
       display: flex;
       gap: 20px;
@@ -36,6 +40,8 @@
     }
     .tabs a:hover { background-color: #575757; }
     .tabs a.active { background-color: #1f6feb; }
+    
+    /* Social media icons on the top right */
     .social-icons a {
       color: white;
       margin-left: 15px;
@@ -44,7 +50,7 @@
     }
     .social-icons a:hover { color: #1da1f2; }
 
-    /* Content */
+    /* Main page content */
     .content {
       text-align: center;
       margin-top: 80px;
@@ -60,6 +66,7 @@
       text-align: left;
     }
 
+    /* Table style */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -72,7 +79,7 @@
     }
     th { background: #f3f4f6; text-align: left; }
 
-    /* Add Activity Form */
+    /* Add Activity */
     .add-row {
       display: flex;
       gap: 10px;
@@ -94,15 +101,17 @@
     }
     button:hover { background-color: #0056b3; }
 
-    /* Small remove button */
+    /* Remove button (far right) */
     .remove-btn {
       background-color: #d9534f;
       color: white;
       border: none;
-      border-radius: 5px;
-      padding: 5px 10px;
+      border-radius: 4px;
+      padding: 4px 10px;
       cursor: pointer;
-      font-size: 0.9em;
+      font-size: 1em;
+      font-weight: bold;
+      line-height: 1;
     }
     .remove-btn:hover {
       background-color: #b52b27;
@@ -130,12 +139,13 @@
     </div>
   </div>
 
-  <!-- Main Content -->
+  <!-- Main Content (schedule table)-->
   <div class="content">
     <div class="content-box">
       <h2>Your Weekly Schedule</h2>
       <p>Plan your meals, workouts, and daily goals here.</p>
 
+      <!-- Main table showing activitiec -->
       <table id="scheduleTable">
         <thead>
           <tr>
@@ -148,11 +158,11 @@
         <tbody>
           <tr>
             <td>Monday</td><td>8:00 AM</td><td>Breakfast – Oatmeal & Fruit</td>
-            <td><button class="remove-btn" onclick="removeRow(this)">🗑️</button></td>
+            <td><button class="remove-btn" onclick="removeRow(this)">X</button></td>
           </tr>
           <tr>
             <td>Tuesday</td><td>12:30 PM</td><td>Lunch – Chicken Salad</td>
-            <td><button class="remove-btn" onclick="removeRow(this)">🗑️</button></td>
+            <td><button class="remove-btn" onclick="removeRow(this)">X</button></td>
           </tr>
         </tbody>
       </table>
@@ -170,7 +180,10 @@
     </div>
   </div>
 
+  <!-- Javascript -->
   <script>
+    
+    // 24-hour time to 12-hour AM/PM format
     function formatTime(time) {
       if (!time) return '';
       let [h, m] = time.split(':').map(Number);
@@ -179,10 +192,13 @@
       return `${h}:${String(m).padStart(2,'0')} ${ampm}`;
     }
 
+    // Add a new row to the table
     function addRow() {
       const day = document.getElementById('day').value;
       const time = document.getElementById('time').value;
       const activity = document.getElementById('activity').value.trim();
+
+      // Prompt user to input activity if field is empty
       if (!activity) return;
 
       const tbody = document.querySelector('#scheduleTable tbody');
@@ -191,13 +207,15 @@
         <td>${day}</td>
         <td>${formatTime(time)}</td>
         <td>${activity}</td>
-        <td><button class="remove-btn" onclick="removeRow(this)">🗑️</button></td>
+        <td><button class="remove-btn" onclick="removeRow(this)">X</button></td>
       `;
       tbody.appendChild(row);
 
+      // Clear input field after adding activity
       document.getElementById('activity').value = '';
     }
-
+    
+    // Removes row of user's choice
     function removeRow(button) {
       button.closest('tr').remove();
     }
