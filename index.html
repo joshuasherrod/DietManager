@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Diet Manager App</title>
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+
+    /* Base */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #333;
+      background: url("background.jpg") no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    /* Top taskbar */
+    .navbar {
+      display: flex;
+      align-items: center;
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      gap: 16px;
+    }
+    .tabs {
+      display: flex;
+      gap: 20px;
+      margin-right: auto;
+    }
+    .tabs a.active {
+      background-color: #1f6feb; /* blue highlight */
+    }
+    .tabs a {
+      color: #fff;
+      text-decoration: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+    }
+    .tabs a:hover { background-color: #575757; }
+
+    /* Social icons on the right */
+    .social-icons a {
+      color: #fff;
+      margin-left: 15px;
+      font-size: 25px;
+      text-decoration: none;
+      position: relative;
+      top: 3px;
+      padding: 2px;
+    }
+    .social-icons a:hover { color: #1da1f2; }
+
+    /* Main content */
+    .content {
+      text-align: center;
+      padding: 100px 16px 60px;
+    }
+    .content-box {
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 30px 40px;
+      border-radius: 10px;
+      display: inline-block;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      max-width: 520px;
+    }
+    .content h1 {
+      font-size: 2rem;
+      margin: 0 0 10px;
+    }
+    .content p {
+      margin: 0 0 24px;
+      color: #555;
+    }
+
+    /* Auth (login / signup) */
+    .auth-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .auth-tab {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #ccc;
+      background: #f4f4f4;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .auth-tab.active {
+      background: #007bff;
+      border-color: #007bff;
+      color: #fff;
+    }
+
+    .auth-panel form {
+      text-align: center;
+    }
+    .auth-panel form input {
+      display: block;
+      width: 220px;
+      margin: 10px auto;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .auth-panel form button {
+      display: inline-block;
+      width: auto;
+      max-width: fit-content;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 8px;
+    }
+
+    .auth-panel form button:hover {
+      background: #0056b3;
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Taskbar -->
+  <div class="navbar">
+    <nav class="tabs">
+      <a href="index.html" class="active">Home</a>
+      <a href="schedule.html">Schedule</a>
+      <a href="shopping.html">Shopping</a>
+      <a href="profile.html">Profile</a>
+      <a href="#">Settings</a>
+      <a href="#">About</a>
+    </nav>
+
+    <div class="social-icons">
+      <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+      <a href="#"><i class="fa-brands fa-twitter"></i></a>
+      <a href="#"><i class="fa-brands fa-instagram"></i></a>
+      <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <main class="content">
+    <div class="content-box">
+      <h1>Easy Diet</h1>
+      <p>Your new healthy diet is just <br>
+      a few clicks away!</p>
+
+      <div class="auth">
+        <div class="auth-tabs" role="tablist" aria-label="Authentication">
+          <button class="auth-tab active" id="loginTab" aria-controls="loginPanel" aria-selected="true">Log In</button>
+          <button class="auth-tab" id="signupTab" aria-controls="signupPanel" aria-selected="false">Sign Up</button>
+        </div>
+
+        <div class="auth-panel" id="loginPanel" role="tabpanel" aria-labelledby="loginTab">
+          <form onsubmit="event.preventDefault(); alert('Logged in (demo)');">
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Log In</button>
+          </form>
+        </div>
+
+        <div class="auth-panel hidden" id="signupPanel" role="tabpanel" aria-labelledby="signupTab">
+          <form onsubmit="event.preventDefault(); alert('Account created (demo)');">
+            <input type="text" placeholder="Username" required>
+            <input type="email" placeholder="Email" required>
+            <input type="password" placeholder="Password" required>
+            <button type="submit">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Tiny script at the end so elements exist when we query them -->
+  <script>
+    const loginTab = document.getElementById('loginTab');
+    const signupTab = document.getElementById('signupTab');
+    const loginPanel = document.getElementById('loginPanel');
+    const signupPanel = document.getElementById('signupPanel');
+
+    function show(panel) {
+      const isLogin = panel === 'login';
+      loginPanel.classList.toggle('hidden', !isLogin);
+      signupPanel.classList.toggle('hidden', isLogin);
+      loginTab.classList.toggle('active', isLogin);
+      signupTab.classList.toggle('active', !isLogin);
+      loginTab.setAttribute('aria-selected', isLogin);
+      signupTab.setAttribute('aria-selected', !isLogin);
+    }
+
+    loginTab.addEventListener('click', () => show('login'));
+    signupTab.addEventListener('click', () => show('signup'));
+  </script>
+</body>
+</html>
