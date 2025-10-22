@@ -43,10 +43,13 @@
     
     /* Social media icons on the top right */
     .social-icons a {
-      color: white;
+      color: #fff;
       margin-left: 15px;
-      font-size: 20px;
+      font-size: 25px;
       text-decoration: none;
+      position: relative;
+      top: 3px;
+      padding: 2px;
     }
     .social-icons a:hover { color: #1da1f2; }
 
@@ -125,10 +128,10 @@
     <div class="tabs">
       <a href="home.html">Home</a>
       <a href="schedule.html" class="active">Schedule</a>
-      <a href="#">Shopping</a>
+      <a href="shopping.html">Shopping</a>
       <a href="profile.html">Profile</a>
-      <a href="#">Settings</a>
-      <a href="#">About</a>
+      <a href="settings.html">Settings</a>
+      <a href="about.html">About</a>
     </div>
 
     <div class="social-icons">
@@ -190,7 +193,7 @@
       const time = document.getElementById('time').value;
       const activity = document.getElementById('activity').value.trim();
 
-      // Prompt user to input activity if field is empty
+      // Prompt user to fill activity field if empty
       if (!activity) return;
 
       const tbody = document.querySelector('#scheduleTable tbody');
@@ -203,7 +206,7 @@
       `;
       tbody.appendChild(row);
 
-      // Clear input field after adding activity
+      // Clear input field after adding
       document.getElementById('activity').value = '';
     }
     
